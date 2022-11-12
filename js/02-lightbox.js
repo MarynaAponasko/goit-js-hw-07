@@ -26,6 +26,5 @@ const gallery = new SimpleLightbox(".gallery a", {
 });
 gallery.on("show.simplelightbox", function (event) {
   event.preventDefault();
-  console.log("11111");
 });
 console.log(galleryItems);
