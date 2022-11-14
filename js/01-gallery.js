@@ -26,9 +26,19 @@ function createGaleryItemsMarkup(array) {
     .join("");
 }
 
-const instance = basicLightbox.create(`
-//     <img class="open-img" src="" width="800" height="600">
-// `);
+const instance = basicLightbox.create(
+  ` 
+<img class="open-img" src="" width="800" height="600">
+ `,
+  {
+    onShow: (instance) => {
+      window.addEventListener("keydown", onEcsKeyPress);
+    },
+    onClose: (instance) => {
+      window.removeEventListener("keydown", onEcsKeyPress);
+    },
+  }
+);
 
 function onGalleryContainerClick(event) {
   event.preventDefault();
@@ -39,16 +49,15 @@ function onGalleryContainerClick(event) {
   const changeImg = document.querySelector(".open-img");
   changeImg.src = event.target.dataset.source;
 
-  window.addEventListener("keydown", onEcsKeyPress);
-
   console.log(event.target.dataset.source);
 }
 
 function onEcsKeyPress(event) {
   if (event.code === "Escape") {
     instance.close();
-    return window.removeEventListener("keydown", onEcsKeyPress);
+    return instance;
   }
+  // console.log(event.code);
 }
-
+console.log();
 console.log(galleryItems);
